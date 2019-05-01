@@ -57,6 +57,14 @@ public:
 		PutPixel( x,y,{ unsigned char( r ),unsigned char( g ),unsigned char( b ) } );
 	}
 	void PutPixel( int x,int y,Color c );
+
+	/* Rectangle drawing functions*/
+	void DrawRectangle(int x_start, int y_start, int x_end, int y_end, Color c);
+	void DrawRectangleByDimension(int x_start, int y_start, int width, int height, Color c)
+	{
+		DrawRectangle(x_start, y_start, x_start + width, y_start + height, c);
+	};
+
 	~Graphics();
 private:
 	Microsoft::WRL::ComPtr<IDXGISwapChain>				pSwapChain;
