@@ -35,3 +35,8 @@ Vector2D Vector2D::operator++()
 {
 	return { X + 1, Y + 1};
 }
+
+bool Vector2D::operator==(Vector2D comparedVector)
+{
+	return (X == comparedVector.X && Y == comparedVector.Y);
+}
