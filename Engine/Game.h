@@ -24,6 +24,8 @@
 #include "Mouse.h"
 #include "Graphics.h"
 #include "Board.h"
+#include "Block.h"
+#include "Vector2D.h"
 
 class Game
 {
@@ -41,10 +43,11 @@ private:
 private:
 	MainWindow& wnd;
 	Graphics gfx;
+	
 	/********************************/
 	/*  User Variables              */
 	Board GameBoard;
-
+	Block Blocks[100];
 
 
 	/********************************/

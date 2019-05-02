@@ -24,7 +24,8 @@
 Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
-	gfx( wnd )
+	gfx( wnd ),
+	Blocks()
 {
 }
 
@@ -42,5 +43,5 @@ void Game::UpdateModel()
 
 void Game::ComposeFrame()
 {
-	GameBoard.Draw(gfx);
+	GameBoard.DrawEmptyCells(gfx);
 }
