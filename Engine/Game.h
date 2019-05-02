@@ -26,6 +26,7 @@
 #include "Board.h"
 #include "Block.h"
 #include "Vector2D.h"
+#include "FrameTimer.h"
 
 class Game
 {
@@ -43,11 +44,15 @@ private:
 private:
 	MainWindow& wnd;
 	Graphics gfx;
+	FrameTimer FT;
 	
 	/********************************/
 	/*  User Variables              */
 	Board GameBoard;
 	Block Blocks[100];
+	float MoveTimer = 0;
+	float FallTimer = 0;
+	int ControlledBlock = 0;
 
 
 	/********************************/

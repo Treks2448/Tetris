@@ -21,8 +21,4 @@ private:
 	/* Number of cells horizontally and vertically on the board */
 	static constexpr int Width = 10;
 	static constexpr int Height = 20;
-
-	/* 2D array storing the index of what to draw on the board 
-	int Index[Width * Height] = { 0 };
-	*/
 };

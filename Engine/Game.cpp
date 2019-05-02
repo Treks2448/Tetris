@@ -25,7 +25,8 @@ Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
 	gfx( wnd ),
-	Blocks()
+	Blocks(),
+	FT()
 {
 }
 
@@ -39,9 +40,43 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
+	const float DeltaTime = FT.Mark();
+	MoveTimer += DeltaTime;
+	FallTimer += DeltaTime;
+
+
+	if ((!Blocks[ControlledBlock].IsOnTop(Blocks[ControlledBlock -1 ])) //placeholder statement to test block collision
+		&& (!Blocks[ControlledBlock].IsAtBottom(19)))					//
+	{
+		if (MoveTimer >= 0.1f)
+		{
+			if (wnd.kbd.KeyIsPressed(VK_LEFT))
+			{
+				Blocks[ControlledBlock].Move({ -1.f, 0.f });
+			}
+			if (wnd.kbd.KeyIsPressed(VK_RIGHT))
+			{
+				Blocks[ControlledBlock].Move({ 1.f, 0.f });
+			}
+			MoveTimer = 0.f;
+		}
+		if (FallTimer >= .1f)
+		{
+			Blocks[ControlledBlock].Fall();
+			FallTimer = 0.f;
+		}
+	}
+	else
+	{
+		ControlledBlock += 1;
+	}
 }
 
 void Game::ComposeFrame()
 {
 	GameBoard.DrawEmptyCells(gfx);
+	for (int iBlock = 0; iBlock < ControlledBlock + 1; iBlock++)
+	{
+		Blocks[iBlock].Draw(gfx, GameBoard);
+	}
 }
