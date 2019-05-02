@@ -1,5 +1,6 @@
 #include "Block.h"
 #include "Colors.h"
+#include <assert.h>
 
 Block::Block()
 {
@@ -70,9 +71,9 @@ Block::Block()
 
 void Block::Draw(Graphics& gfx, Board& board)
 {
-	for (Vector2D ElementCoordinate : BlockCoordinates)
+	for (Vector2D iElement : BlockCoordinates)
 	{
-		board.DrawCell(ElementCoordinate, gfx, Colors::Red);
+		board.DrawCell(iElement, gfx, Colors::Red);
 	}
 }
 
@@ -81,16 +82,12 @@ void Block::SetCenterPosition(Vector2D centerPosition)
 	CenterPosition = centerPosition;
 }
 
-void Block::SetIsFalling(bool isFalling)
-{
-	bIsFalling = isFalling;
-}
-
 void Block::Fall()
 {
+
 	for (int i = 0; i < BlockSize; i++)
 	{
-		BlockCoordinates[i] -= {1, 1};
+		BlockCoordinates[i] -= {0, -1.f};
 	}
 }
 
@@ -98,6 +95,10 @@ void Block::Rotate()
 {
 }
 
-void Block::Move()
+void Block::Move(Vector2D direction)
 {
+	for (int i = 0; i < BlockSize; i++)
+	{
+		BlockCoordinates[i] += direction;
+	}
 }
