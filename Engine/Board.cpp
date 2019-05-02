@@ -9,7 +9,7 @@ void Board::DrawCell(Vector2D& position, Graphics& gfx, Color color)
 	gfx.DrawRectangleByDimension(int(position.X)*CellSideLength, int(position.Y)*CellSideLength, CellSideLength, CellSideLength, color);
 }
 
-void Board::Draw(Graphics& gfx)
+void Board::DrawEmpty(Graphics& gfx)
 {
 	for (int iY = 0; iY < Height; iY++)
 	{

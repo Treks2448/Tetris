@@ -12,7 +12,7 @@ public:
 	void DrawCell(Vector2D& position, Graphics& gfx, Color color);
 
 	/* Draws the entire board */
-	void Draw(Graphics& gfx);
+	void DrawEmpty(Graphics& gfx);
 
 private:
 	/* Numvber of pixels horizontally and vertically per cell*/
@@ -22,7 +22,7 @@ private:
 	static constexpr int Width = 10;
 	static constexpr int Height = 20;
 
-	/* 2D array storing the state of the game */
-	int Grid[Width * Height] = { 0 };
+	/* 2D array storing the index of what to draw on the board */
+	int Index[Width * Height] = { 0 };
 
 };
