@@ -31,16 +31,15 @@ Block::Block()
 		BlockCoordinates[0] = { CenterPosition.X - 1.f, CenterPosition.Y };
 		BlockCoordinates[1] = CenterPosition;
 		BlockCoordinates[2] = { CenterPosition.X + 1.f, CenterPosition.Y };
-		BlockCoordinates[4] = { CenterPosition.X + 1.f, CenterPosition.Y -1.f};
-
+		BlockCoordinates[3] = { CenterPosition.X -1.f, CenterPosition.Y +1.f };
 	}
 	else if (Index == 3)
 	{
 		// O-Block
-		BlockCoordinates[0] = { CenterPosition.X , CenterPosition.Y -1.f};
+		BlockCoordinates[0] = { CenterPosition.X +1.f, CenterPosition.Y -1.f};
 		BlockCoordinates[1] = CenterPosition;
-		BlockCoordinates[2] = { CenterPosition.X + 1.f, CenterPosition.Y -1.f};
-		BlockCoordinates[3] = { CenterPosition.X + 1.f, CenterPosition.Y };
+		BlockCoordinates[2] = { CenterPosition.X, CenterPosition.Y -1.f};
+		BlockCoordinates[3] = { CenterPosition.X - 1.f, CenterPosition.Y };
 	}
 	else if (Index == 4)
 	{
@@ -60,7 +59,7 @@ Block::Block()
 	}
 	else if (Index == 6)
 	{
-		//Z-Block
+		// Z-Block
 		BlockCoordinates[0] = { CenterPosition.X - 1.f, CenterPosition.Y -1.f};
 		BlockCoordinates[1] = { CenterPosition.X, CenterPosition.Y -1.f};
 		BlockCoordinates[2] = CenterPosition;
