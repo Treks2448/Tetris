@@ -5,6 +5,11 @@ Vector2D Vector2D::operator+(Vector2D vectorToAdd)
 	return {X + vectorToAdd.X, Y + vectorToAdd.Y};
 }
 
+Vector2D Vector2D::operator-(Vector2D vectorToSubtract)
+{
+	return { X - vectorToSubtract.X, Y - vectorToSubtract.Y };
+}
+
 Vector2D Vector2D::operator*(float multiplier)
 {
 	return { X + multiplier, Y + multiplier };

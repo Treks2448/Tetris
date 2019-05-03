@@ -22,7 +22,7 @@ public:
 	void Fall();
 
 	/* Handles rotation of the block*/
-	void Rotate();
+	void Rotate(bool clockwise);
 
 	/* Handles movement of the brick*/
 	void Move(Vector2D direction);

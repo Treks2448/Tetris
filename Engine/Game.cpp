@@ -71,6 +71,14 @@ void Game::UpdateModel()
 	{
 		if (MoveTimer >= 0.1f)
 		{
+			if (wnd.kbd.KeyIsPressed(VK_UP))
+			{
+				Blocks[ControlledBlock].Rotate(true);
+			}
+			if (wnd.kbd.KeyIsPressed(VK_DOWN))
+			{
+				Blocks[ControlledBlock].Rotate(false);
+			}
 			if (wnd.kbd.KeyIsPressed(VK_LEFT))
 			{
 				Blocks[ControlledBlock].Move({ -1.f, 0.f });

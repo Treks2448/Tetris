@@ -1,6 +1,7 @@
 #include "Block.h"
 #include "Colors.h"
 #include <assert.h>
+#include "Matrix2D.h"
 
 Block::Block()
 {
@@ -93,8 +94,21 @@ void Block::Fall()
 	}
 }
 
-void Block::Rotate()
+void Block::Rotate(bool clockwise)
 {
+	// make sure that the rotation won't go out of the boundary
+	for (int i = 0; i < BlockSize; i++)
+	{
+		Matrix2D RotateClockwise90 = { 0.f, 1.f, -1.f , 0.f };
+		if (clockwise)
+		{
+			BlockCoordinates[i] = RotateClockwise90.Transform(BlockCoordinates[i] - CenterPosition) + CenterPosition;
+		}
+		else
+		{
+			BlockCoordinates[i] = RotateClockwise90.Transform(BlockCoordinates[i] - CenterPosition) * (-1.f) + CenterPosition;
+		}
+	}
 }
 
 void Block::Move(Vector2D direction)

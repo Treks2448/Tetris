@@ -4,6 +4,7 @@ class Vector2D
 {
 public:
 	Vector2D operator + (Vector2D vectorToAdd);
+	Vector2D operator - (Vector2D vectorToSubtract);
 	Vector2D operator * (float multiplier);
 	Vector2D operator += (Vector2D vectorToAdd);
 	Vector2D operator *= (Vector2D multiplier);
