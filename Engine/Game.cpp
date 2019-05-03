@@ -21,12 +21,13 @@
 #include "MainWindow.h"
 #include "Game.h"
 
-Game::Game( MainWindow& wnd )
+Game::Game(MainWindow& wnd)
 	:
-	wnd( wnd ),
-	gfx( wnd ),
+	wnd(wnd),
+	gfx(wnd),
 	Blocks(),
-	FT()
+	FT(),
+	GameBoard()
 {
 }
 
@@ -44,9 +45,29 @@ void Game::UpdateModel()
 	MoveTimer += DeltaTime;
 	FallTimer += DeltaTime;
 
+	for (int iElement = 0; iElement < 4; iElement++) 
+	{
+		Vector2D ElementCoordinates = Blocks[ControlledBlock].GetElementCoordinates(iElement);
+		Vector2D CellBelow = { 0.f, 1.f };
 
-	if ((!Blocks[ControlledBlock].IsOnTop(Blocks[ControlledBlock -1 ])) //placeholder statement to test block collision
-		&& (!Blocks[ControlledBlock].IsAtBottom(19)))					//
+		// if the cell below any element of the block is full or if the block is at the bottom of the board
+		if ((!GameBoard.CellIsEmpty(ElementCoordinates + CellBelow))
+			|| Blocks[ControlledBlock].GetElementCoordinates(iElement).Y == Board::Height)
+		{
+			Blocks[ControlledBlock].SetFalling(false);
+
+			for (int iCell = 0; iCell < 4; iCell++)
+			{
+				GameBoard.FillCell(Blocks[ControlledBlock].GetElementCoordinates(iCell));
+			}
+
+			ControlledBlock += 1;
+
+			break;
+		}
+	}
+
+	if (Blocks[ControlledBlock].IsFalling())
 	{
 		if (MoveTimer >= 0.1f)
 		{
@@ -60,21 +81,18 @@ void Game::UpdateModel()
 			}
 			MoveTimer = 0.f;
 		}
-		if (FallTimer >= .1f)
+		if (FallTimer >= .3f)
 		{
 			Blocks[ControlledBlock].Fall();
 			FallTimer = 0.f;
 		}
 	}
-	else
-	{
-		ControlledBlock += 1;
-	}
+	GameBoard.DoLineClear();
 }
 
 void Game::ComposeFrame()
 {
-	GameBoard.DrawEmptyCells(gfx);
+	GameBoard.DrawAllCells(gfx);
 	for (int iBlock = 0; iBlock < ControlledBlock + 1; iBlock++)
 	{
 		Blocks[iBlock].Draw(gfx, GameBoard);

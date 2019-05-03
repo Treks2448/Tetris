@@ -70,9 +70,12 @@ Block::Block()
 
 void Block::Draw(Graphics& gfx, Board& board) const
 {
-	for (Vector2D iElement : BlockCoordinates)
+	if (bIsFalling)
 	{
-		board.DrawCell(iElement, gfx, Colors::Red);
+		for (Vector2D iElement : BlockCoordinates)
+		{
+			board.DrawCell(iElement, gfx, Colors::Red);
+		}
 	}
 }
 
@@ -102,42 +105,17 @@ void Block::Move(Vector2D direction)
 	}
 }
 
-bool Block::IsOnTop(Block& block)
+Vector2D Block::GetElementCoordinates(int iElement) const
 {
-	for (int iCell = 0; iCell < BlockSize; iCell++)
-	{
-		for (int iCell_2 = 0; iCell_2 < BlockSize; iCell_2++)
-		{
-			Vector2D CellBelow = { 0.f, 1.f };
-			if (BlockCoordinates[iCell] + CellBelow == block.GetBlockCoordinates(iCell_2) )
-			{
-				bIsFalling = false;
-				return true;
-			}
-		}
-	}
-	return false;
+	return BlockCoordinates[iElement];
 }
 
-bool Block::IsAtBottom(int bottomY)
-{
-	for (int iCell = 0; iCell < BlockSize; iCell++)
-	{
-		if (int (BlockCoordinates[iCell].Y) == bottomY)
-		{
-			bIsFalling = false;
-			return true;
-		}
-	}
-	return false;
-}
-
-Vector2D Block::GetBlockCoordinates(int i) const
-{
-	return BlockCoordinates[i];
-}
-
-bool Block::IsFalling()
+bool Block::IsFalling() const
 {
 	return bIsFalling;
+}
+
+void Block::SetFalling(bool isFalling)
+{
+	bIsFalling = isFalling;
 }

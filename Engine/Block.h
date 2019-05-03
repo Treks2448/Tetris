@@ -27,16 +27,14 @@ public:
 	/* Handles movement of the brick*/
 	void Move(Vector2D direction);
 
-	/* Checks if the block is on top of another block. Returns true if this is the case*/
-	bool IsOnTop(Block& block);
-
-	/* Checks if the block*/
-	bool IsAtBottom(int bottomY);
-
 	/* Returns the coordinates of the ith element of the block*/
-	Vector2D GetBlockCoordinates(int i) const;
+	Vector2D GetElementCoordinates(int iElement) const;
 
-	bool IsFalling();
+	/* Returns whether the block is in the falling state */
+	bool IsFalling() const;
+
+	/* Allows to change the state of the brick to falling / not falling */
+	void SetFalling(bool isFalling);
 
 private:
 	/* Position of the central cell of the block */
