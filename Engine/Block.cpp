@@ -22,8 +22,8 @@ Block::Block()
 	{
 		// J-Block
 		BlockCoordinates[0] = { CenterPosition.X - 1.f, CenterPosition.Y -1.f};
-		BlockCoordinates[1] = { CenterPosition.X - 1.f, CenterPosition.Y };
-		BlockCoordinates[2] = CenterPosition;
+		BlockCoordinates[1] = CenterPosition;
+		BlockCoordinates[2] = { CenterPosition.X - 1.f, CenterPosition.Y };
 		BlockCoordinates[3] = { CenterPosition.X +1.f, CenterPosition.Y };
 	}
 	else if (Index == 2)
@@ -46,8 +46,8 @@ Block::Block()
 	{
 		// S-Block
 		BlockCoordinates[0] = { CenterPosition.X - 1.f, CenterPosition.Y -1.f};
-		BlockCoordinates[1] = { CenterPosition.X, CenterPosition.Y -1.f};
-		BlockCoordinates[2] = CenterPosition;
+		BlockCoordinates[1] = CenterPosition;
+		BlockCoordinates[2] = { CenterPosition.X, CenterPosition.Y - 1.f };
 		BlockCoordinates[3] = { CenterPosition.X + 1.f, CenterPosition.Y };
 	}
 	else if (Index == 5)
@@ -62,8 +62,8 @@ Block::Block()
 	{
 		// Z-Block
 		BlockCoordinates[0] = { CenterPosition.X - 1.f, CenterPosition.Y -1.f};
-		BlockCoordinates[1] = { CenterPosition.X, CenterPosition.Y -1.f};
-		BlockCoordinates[2] = CenterPosition;
+		BlockCoordinates[1] = CenterPosition;
+		BlockCoordinates[2] = { CenterPosition.X, CenterPosition.Y - 1.f};
 		BlockCoordinates[3] = { CenterPosition.X + 1.f, CenterPosition.Y };
 	}
 	//TODO generate the block
@@ -78,11 +78,6 @@ void Block::Draw(Graphics& gfx, Board& board) const
 			board.DrawCell(iElement, gfx, Colors::Red);
 		}
 	}
-}
-
-void Block::SetCenterPosition(Vector2D centerPosition)
-{
-	CenterPosition = centerPosition;
 }
 
 void Block::Fall()
@@ -102,11 +97,11 @@ void Block::Rotate(bool clockwise)
 		Matrix2D RotateClockwise90 = { 0.f, 1.f, -1.f , 0.f };
 		if (clockwise)
 		{
-			BlockCoordinates[i] = RotateClockwise90.Transform(BlockCoordinates[i] - CenterPosition) + CenterPosition;
+			BlockCoordinates[i] = RotateClockwise90.Transform(BlockCoordinates[i] - BlockCoordinates[1]) + BlockCoordinates[1];
 		}
 		else
 		{
-			BlockCoordinates[i] = RotateClockwise90.Transform(BlockCoordinates[i] - CenterPosition) * (-1.f) + CenterPosition;
+			BlockCoordinates[i] = RotateClockwise90.Transform(BlockCoordinates[i] - BlockCoordinates[1]) * (-1.f) + BlockCoordinates[1];
 		}
 	}
 }

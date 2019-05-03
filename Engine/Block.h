@@ -15,9 +15,6 @@ public:
 	/* Draws the block on the board*/
 	void Draw(Graphics& gfx, Board& board) const;
 
-	/* Used to set the coordinate of the center of the block */
-	void SetCenterPosition(Vector2D centerPosition);
-
 	/* Handles falling of the block*/
 	void Fall();
 
