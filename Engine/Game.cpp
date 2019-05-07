@@ -25,8 +25,8 @@ Game::Game(MainWindow& wnd)
 	:
 	wnd(wnd),
 	gfx(wnd),
-	Blocks(),
 	FT(),
+	Blocks(),
 	GameBoard()
 {
 }
@@ -58,7 +58,7 @@ void Game::UpdateModel()
 
 			for (int iCell = 0; iCell < 4; iCell++)
 			{
-				GameBoard.FillCell(Blocks[ControlledBlock].GetElementCoordinates(iCell));
+				GameBoard.FillCell(Blocks[ControlledBlock].GetElementCoordinates(iCell), Blocks[ControlledBlock].GetColour());
 			}
 
 			ControlledBlock += 1;
@@ -69,32 +69,52 @@ void Game::UpdateModel()
 
 	if (Blocks[ControlledBlock].IsFalling())
 	{
-		if (MoveTimer >= 0.1f)
-		{
+		
+	
 			if (wnd.kbd.KeyIsPressed(VK_UP))
 			{
-				Blocks[ControlledBlock].Rotate(true);
+				if (!KeyHeld)
+				{
+					Blocks[ControlledBlock].Rotate(true);
+				}
+				KeyHeld = true;
 			}
-			if (wnd.kbd.KeyIsPressed(VK_DOWN))
+			else if (wnd.kbd.KeyIsPressed(VK_DOWN) )
 			{
-				Blocks[ControlledBlock].Rotate(false);
+				if (!KeyHeld)
+				{
+					Blocks[ControlledBlock].Rotate(false);
+				}
+				KeyHeld = true;
 			}
-			if (wnd.kbd.KeyIsPressed(VK_LEFT))
+			else if (wnd.kbd.KeyIsPressed(VK_LEFT) )
 			{
-				Blocks[ControlledBlock].Move({ -1.f, 0.f });
+				if (!KeyHeld)
+				{
+					Blocks[ControlledBlock].Move({ -1.f, 0.f });
+				}
+				KeyHeld = true;
 			}
-			if (wnd.kbd.KeyIsPressed(VK_RIGHT))
+			else if (wnd.kbd.KeyIsPressed(VK_RIGHT) )
 			{
-				Blocks[ControlledBlock].Move({ 1.f, 0.f });
+				if (!KeyHeld)
+				{
+					Blocks[ControlledBlock].Move({ 1.f, 0.f });
+				}
+				KeyHeld = true;
 			}
-			MoveTimer = 0.f;
-		}
-		if (FallTimer >= .3f)
+			else
+			{
+				KeyHeld = false;
+			}
+
+		if (FallTimer >= .15f)
 		{
 			Blocks[ControlledBlock].Fall();
 			FallTimer = 0.f;
 		}
 	}
+	
 	GameBoard.DoLineClear();
 }
 

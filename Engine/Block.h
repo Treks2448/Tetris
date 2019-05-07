@@ -33,6 +33,9 @@ public:
 	/* Allows to change the state of the brick to falling / not falling */
 	void SetFalling(bool isFalling);
 
+	/* returns the colour of the block */
+	Color GetColour();
+
 private:
 	/* Position of the central cell of the block */
 	Vector2D CenterPosition = { 4,3 };
@@ -46,6 +49,6 @@ private:
 	/* Set of coordinates of each cell of the block*/
 	Vector2D BlockCoordinates[BlockSize];
 
-	Keyboard kbd;
-
+	/* The colour of the block */
+	Color Colour;
 };

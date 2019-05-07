@@ -10,11 +10,12 @@ Board::Board()
 
 void Board::DrawCell(Vector2D& position, Graphics& gfx, Color color) const
 {
-	gfx.DrawRectangleByDimension(int(position.X)*CellSideLength, int(position.Y)*CellSideLength, CellSideLength, CellSideLength, color);
+	gfx.DrawRectangleByDimension(int(position.X)*CellSideLength + OffsetX, int(position.Y)*CellSideLength + OffsetY, CellSideLength -2.f, CellSideLength -2.f, color);
 }
 
 void Board::DrawAllCells(Graphics& gfx) const
 {
+
 	for (int iY = 0; iY < Height; iY++)
 	{
 		for (int iX = 0; iX < Width; iX++)
@@ -26,15 +27,16 @@ void Board::DrawAllCells(Graphics& gfx) const
 			}
 			else
 			{
-				DrawCell(Position, gfx, Colors::Red);
+				DrawCell(Position, gfx, Colours[iY * Width + iX]);
 			}
 		}
 	}
 }
 
-void Board::FillCell(Vector2D& cellCoordinates)
+void Board::FillCell(Vector2D& cellCoordinates, Color color)
 {
 	IsEmpty[int(cellCoordinates.Y) * Width + int(cellCoordinates.X)] = false;
+	Colours[int(cellCoordinates.Y) * Width + int(cellCoordinates.X)] = color;
 }
 
 bool Board::CellIsEmpty(Vector2D& cellCoordinates) const
@@ -72,11 +74,13 @@ void Board::DoLineClear()
 
 void Board::MoveCellsDown(int maxY)
 {
+	bDoLineClearAnimation = true;
 	for (int iY = maxY; iY > 1; iY--)
 	{
 		for (int iX = 0; iX < Width; iX++)
 		{
 			IsEmpty[iY * Width + iX] = IsEmpty[(iY - 1) * Width + iX];
+			Colours[iY * Width + iX] = Colours[(iY - 1) * Width + iX];
 		}
 	}
 }

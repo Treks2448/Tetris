@@ -50,10 +50,9 @@ private:
 	/*  User Variables              */
 	Board GameBoard;
 	Block Blocks[100];
-	float MoveTimer = 0;
-	float FallTimer = 0;
+	float MoveTimer = 0.f;
+	float FallTimer = 0.f;
 	int ControlledBlock = 0;
-
-
+	bool KeyHeld = false;
 	/********************************/
 };
