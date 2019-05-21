@@ -108,7 +108,7 @@ void Game::UpdateModel()
 				KeyHeld = false;
 			}
 
-		if (FallTimer >= .15f)
+		if (FallTimer >= .3f)
 		{
 			Blocks[ControlledBlock].Fall();
 			FallTimer = 0.f;
